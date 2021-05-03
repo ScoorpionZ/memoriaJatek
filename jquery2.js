@@ -64,7 +64,7 @@ function keptombhossz(){
         $("article").append('<img>');
         $("article>img").eq(tombs[x]).attr("src", "kepek/hatter.jpg");
         $("article>img").eq(tombs[x]).attr("alt", "szörny");
-        $("article>img").eq(tombs[x]).attr("id", tombs[x]);
+        $("article>img").eq(tombs[x]).attr("id", i);
         console.log(tombs[x]);
         tombs.splice(x, 1);
     }
