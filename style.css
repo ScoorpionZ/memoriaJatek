@@ -1,21 +1,67 @@
 @charset "UTF-8";
+body{
+    background-color: #E3FA21;
+}
 
 main{
-    width: 800px;
+    width: 70%;
+    margin: auto;
+    border-radius: 2%;
+    background-color: white;
+    font-size: 30px;
+    padding: 10px;
+    
+    display: grid;
+    grid-template-areas: 
+        "h h h h "
+        "as as as as "
+        "a a a a "
+        "f f f f "
+    ;
 
 }
+
+header{
+    grid-area: h;
+    text-align: center;
+}
+
+
+aside{
+    grid-area: as;
+    padding: 5px;
+}
+aside>label{
+    margin-right: 10px;
+    font-size: 30px;
+}
+
+aside>input{
+    margin:10px;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+}
+
+
 article{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-area: a;
 }
 
-footer,article,header{
-    border:  2px solid black;
+
+footer{
+    grid-area: f;
+    text-align: center;
 }
+
+
 
 img{
     width: 100%;
     padding: 5px;
+    border-radius: 10%;
 }
 
 *{

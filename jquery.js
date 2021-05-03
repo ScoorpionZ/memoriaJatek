@@ -2,6 +2,8 @@ var kepek = ["kep1.jpg","kep2.jpg","kep3.jpg","kep4.jpg","kep5.jpg","kep6.jpg","
 var kepekalt=["likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny"];
 
 var szamlalo = 0;
+var lepesek = 0;
+var parok = 0;
 var kattintott  = [];
 $(function(){
     console.log("Hello Világ");
@@ -16,7 +18,7 @@ $(function(){
         $("article>img").eq(i).attr("id", i);
     }
     $("article>img").click(kattint);
-    szamlalo  = 0;
+   
 });
 
 function kattint(){
@@ -24,6 +26,7 @@ function kattint(){
     //console.log(id);
     $(this).attr("src","kepek/"+kepek[id]);
     $(this).attr("alt", kepekalt[id]);
+    lepesek++
     szamlalo++;
     //console.log(szamlalo);
     kattintott [szamlalo] =id;
@@ -32,10 +35,15 @@ function kattint(){
         if (kepek[kattintott[1]]===kepek[kattintott[2]]) {
             $("article>img").eq(kattintott[1]).attr("src", "");
             $("article>img").eq(kattintott[2]).attr("src", "");
+            parok++;
         }
         else{
             setTimeout(visszafordit,1000);
         }
+        szamlalo  = 0;
+    }
+    if (parok===20) {
+        console.log(lepesek);
     }
     
 }
