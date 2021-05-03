@@ -37,36 +37,36 @@ function ariticle(){
 
 function keptombhossz(){
     hossz=$("#szoveg").val();
-    
+    var tombs = [0];
     for (let i = 0; i < hossz; i++) {
         kepektomb[i]=("kep"+(i+1)+".jpg"); 
-       
-        
         //console.log(kepektomb[i]);    
     }
     for (let i = hossz; i < hossz*2; i++) {
         kepektomb[i]=("kep"+(i-hossz+1)+".jpg");
         //console.log(kepektomb[i]); 
     }
-    var tombs = [];
+    
     for (let i = 0; i < hossz*2; i+=2) {
         kepekalttomb[i]=("likóla szörny");
         kepekalttomb[i+1]=("zöld szörny");
-        tombs[i]=(i);
-        console.log(tombs[i]);
+    }
+
+    for (let i = 0; i < kepektomb.length; i++) {
+        tombs[i]=i+1;
+        //console.log(tombs[i]);
     }
     
     var x;
     for (let i = 0; i < kepektomb.length; i++) {
         x = Math.floor((Math.random() * (tombs.length)));
-        console.log(x);
+        //console.log(x);
         $("article").append('<img>');
         $("article>img").eq(tombs[x]).attr("src", "kepek/hatter.jpg");
         $("article>img").eq(tombs[x]).attr("alt", "szörny");
-        $("article>img").eq(tombs[x]).attr("id", i);
+        $("article>img").eq(tombs[x]).attr("id", tombs[x]);
         console.log(tombs[x]);
-        $(tombs[x]).remove();
-        
+        tombs.splice(x, 1);
     }
     $("article>img").click(kattint);
 }
