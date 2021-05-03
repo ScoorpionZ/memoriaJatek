@@ -1,5 +1,3 @@
-var kepek = ["kep1.jpg","kep2.jpg","kep3.jpg","kep4.jpg","kep5.jpg","kep6.jpg","kep7.jpg","kep8.jpg","kep9.jpg","kep10.jpg","kep11.jpg","kep12.jpg","kep13.jpg","kep14.jpg","kep15.jpg","kep16.jpg","kep17.jpg","kep18.jpg","kep19.jpg","kep20.jpg","kep1.jpg","kep2.jpg","kep3.jpg","kep4.jpg","kep5.jpg","kep6.jpg","kep7.jpg","kep8.jpg","kep9.jpg","kep10.jpg","kep11.jpg","kep12.jpg","kep13.jpg","kep14.jpg","kep15.jpg","kep16.jpg","kep17.jpg","kep18.jpg","kep19.jpg","kep20.jpg"];
-var kepekalt=["likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny","likóla szörny","zöld szörny"];
 var kepektomb = [];
 var kepekalttomb =[];
 
@@ -7,15 +5,16 @@ var szamlalo = 0;
 var lepesek = 0;
 var parok = 0;
 var hossz = 0;
+var tombs = [];
 var kattintott  = [];
+var altszamol  = [];
+
 $(function(){
     //console.log("Hello Világ");
     //$("article").append('<img src="kepek/kep1.jpg" alt="kep1">');
     //$("article").append('<img src="kepek/kep2.jpg" alt="kep1">');
     $("main").append('<aside></aside>');
     ariticle();
-    
-    
 });
 function ariticle(){
 
@@ -37,51 +36,60 @@ function ariticle(){
 
 function keptombhossz(){
     hossz=$("#szoveg").val();
-    var tombs = [0];
-    for (let i = 0; i < hossz; i++) {
-        kepektomb[i]=("kep"+(i+1)+".jpg"); 
-        //console.log(kepektomb[i]);    
+    if (hossz>21) {
+        alert("Maximum 20 pár lehet");
+        $("aside>label").html('<label>Adjon meg újra a képpárok számát </label>');
     }
-    for (let i = hossz; i < hossz*2; i++) {
-        kepektomb[i]=("kep"+(i-hossz+1)+".jpg");
-        //console.log(kepektomb[i]); 
-    }
+    else
+    {
+        for (let i = 0; i < hossz; i++) {
+            kepektomb[i]=("kep"+(i+1)+".jpg"); 
+            //console.log(kepektomb[i]);    
+        }
+        for (let i = hossz; i < hossz*2; i++) {
+            kepektomb[i]=("kep"+(i-hossz+1)+".jpg");
+            //console.log(kepektomb[i]); 
+        }
+        
+        for (let i = 0; i < hossz*2; i+=2) {
+            kepekalttomb[i]=("lila szörny");
+            kepekalttomb[i+1]=("zöld szörny");
+        }
     
-    for (let i = 0; i < hossz*2; i+=2) {
-        kepekalttomb[i]=("likóla szörny");
-        kepekalttomb[i+1]=("zöld szörny");
-    }
-
-    for (let i = 0; i < kepektomb.length; i++) {
-        tombs[i]=i+1;
-        //console.log(tombs[i]);
-    }
-    
-    var x;
-    for (let i = 0; i < kepektomb.length; i++) {
-        x = Math.floor((Math.random() * (tombs.length)));
-        //console.log(x);
-        $("article").append('<img>');
-        $("article>img").eq(tombs[x]).attr("src", "kepek/hatter.jpg");
-        $("article>img").eq(tombs[x]).attr("alt", "szörny");
-        $("article>img").eq(tombs[x]).attr("id", i);
-        console.log(tombs[x]);
-        tombs.splice(x, 1);
-    }
-    $("article>img").click(kattint);
+        for (let i = 0; i < kepektomb.length; i++) {
+            $("article").append('<img>');
+            tombs[i]=i+1;
+            //console.log(tombs[i]);
+        }
+        
+        var x;
+        for (let i = 0; i < kepektomb.length; i++) {
+            x = Math.floor((Math.random() * (tombs.length)));
+            //console.log(x);
+            
+            $("article>img").eq(i).attr("src", "kepek/hatter.jpg");
+            $("article>img").eq(i).attr("alt", i);
+            $("article>img").eq(i).attr("id", tombs[x]-1);
+            console.log(tombs[x]);
+            tombs.splice(x, 1);
+        }
+        $("article>img").click(kattint);
+    }  
 }
+
 function kattint(){
     var id = $(this).attr("id");
     //console.log(id);
     $(this).attr("src","kepek/"+kepektomb[id]);
-    $(this).attr("alt", kepekalttomb[id]);
+    //$(this).attr("alt", kepekalttomb[id]);
     lepesek++
     szamlalo++;
     //console.log(szamlalo);
-    kattintott [szamlalo] =id;
+    kattintott [szamlalo] = $(this).attr("src");
+    altszamol [szamlalo] = $(this).attr("alt");
     //console.log(kattintott);
     if (szamlalo===2) {
-        if (kepektomb[kattintott[1]]===kepektomb[kattintott[2]]) {
+        if (kattintott[1]===kattintott[2]) {
             $("article>img").eq(kattintott[1]).attr("src", "");
             $("article>img").eq(kattintott[2]).attr("src", "");
             parok++;
@@ -123,6 +131,7 @@ function ujjatek(){
     jatekok = 0;
     kepektomb = [];
     kepekalttomb =[]; 
+    tombs = [];
     $("article>img").remove();
     $("article>div").remove();
     $("aside>label").remove();
@@ -131,6 +140,6 @@ function ujjatek(){
 }
 
 function visszafordit(){
-    $("article>img").eq(kattintott[1]).attr("src", "kepek/hatter.jpg");
-    $("article>img").eq(kattintott[2]).attr("src", "kepek/hatter.jpg");
+    $("article>img").eq(altszamol[1]).attr("src", "kepek/hatter.jpg");
+    $("article>img").eq(altszamol[2]).attr("src", "kepek/hatter.jpg");
 }
